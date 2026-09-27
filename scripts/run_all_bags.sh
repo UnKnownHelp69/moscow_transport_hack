@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Прогон всех bag из папки через чекер организаторов: метрики по каждому bag и среднее.
+# Прогон всех bag из папки через чекер check-code: метрики по каждому bag и среднее.
+#   GNSS_CORRECTION=false - режим без коррекции по GNSS после выставки.
 #   запуск: src/mos_trap/scripts/run_all_bags.sh <папка с bag> [rate]
 #   нужно: собранный workspace чекера (см. ДЛЯ_ЖЮРИ.md), source install/setup.bash
 # Логи каждого bag в ./checker_out/<bag>/, сводная таблица в ./checker_out/summary.txt.
