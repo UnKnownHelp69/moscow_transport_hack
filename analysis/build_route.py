@@ -21,6 +21,9 @@ WEST = 'shchukinskaya_tallinskaya'
 EAST = 'tallinskaya_shchukinskaya'
 
 
+Z_TAPER = 100.   # м: сдвиг высоты стыка затухает на этом расстоянии от карты
+
+
 def arc_length(p):
     return np.r_[0., np.cumsum(np.linalg.norm(np.diff(p[:, :2], axis=0), axis=1))]
 
@@ -123,8 +126,8 @@ def terminal_piece(t, p, m, prefix):
     # убираем её постоянную часть, высоту официальной карты не меняем
     endpoint = q[-1] if prefix else q[0]
     dz = end[2]-endpoint[2]
-    q[:, 2] += dz
     dist = s[-1]-s if prefix else s
+    q[:, 2] += dz*np.clip(1.-dist/Z_TAPER, 0., 1.)
     w = np.clip(1.-dist/20., 0., 1.)
     shift = end[:2]-(q[-1, :2] if prefix else q[0, :2])
     q[:, :2] += w[:, None]*shift

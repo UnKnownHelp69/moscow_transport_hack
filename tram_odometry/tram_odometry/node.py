@@ -55,9 +55,11 @@ class TramOdometryNode(Node):
         vid = str(gp('vehicle_id').value)
         if vid and vid in vehicles and params['wheel_scale'] == DEFAULT_PARAMS['wheel_scale']:
             params['wheel_scale'] = vehicles[vid]
-        self.est = Estimator(load_routes(data_dir + '/routes.json'), params,
-                             load_stops(data_dir + '/stops.json'), load_traction(data_dir + '/traction.json'),
-                             load_queues(data_dir + '/stops.json'))
+        model = (load_routes(data_dir + '/routes.json'), params, load_stops(data_dir + '/stops.json'),
+                 load_traction(data_dir + '/traction.json'), load_queues(data_dir + '/stops.json'))
+        self.new_estimator = lambda: Estimator(*model)
+        self.est = self.new_estimator()
+        self.last_in = None      # самый поздний штамп входа (для распознавания нового bag)
         self.map_frame = gp('map_frame').value
         self.base_frame = gp('base_frame').value
         self.init_xy = (gp('initial_x').value, gp('initial_y').value, gp('initial_yaw').value)
@@ -80,33 +82,54 @@ class TramOdometryNode(Node):
         else:
             self.get_logger().warn('tram_vehicle_msgs has no DriverControllerCommand: running on wheel '
                                    'speeds only (traction model disabled for the notch input)')
-        self.gnss_subs = [
-            self.create_subscription(NavSatFix, '/sensing/gnss/master/fix',
-                                     lambda m: self.on_fix(m, 'master'), sub_qos),
-            self.create_subscription(NavSatFix, '/sensing/gnss/rover/fix',
-                                     lambda m: self.on_fix(m, 'rover'), sub_qos),
-        ]
+        self.sub_qos = sub_qos
+        self.gnss_subs = []
+        self.open_gnss()
         self.lat = []            # задержки обработки, с (начало callback -> публикация)
         self.n_out = 0
         self.last_out_t = None
         self.create_timer(1.0, self.publish_diag)
 
+    def open_gnss(self):
+        self.gnss_subs = [
+            self.create_subscription(NavSatFix, '/sensing/gnss/master/fix',
+                                     lambda m: self.on_fix(m, 'master'), self.sub_qos),
+            self.create_subscription(NavSatFix, '/sensing/gnss/rover/fix',
+                                     lambda m: self.on_fix(m, 'rover'), self.sub_qos),
+        ]
+
+    def check_new_bag(self, t):
+        """Скачок штампа назад больше 5 с или вперёд больше 30 с - начался новый bag (узел не
+        перезапускали): оценщик сбрасывается, подписки на GNSS открываются заново для выставки."""
+        if self.last_in is not None and (t < self.last_in - 5.0 or t > self.last_in + 30.0):
+            self.get_logger().warn('input time jumped %.1f s: new bag, estimator reset' % (t - self.last_in))
+            self.est = self.new_estimator()
+            self.t_first = None
+            self.last_in = t
+            if not self.gnss_subs:
+                self.open_gnss()
+            return
+        self.last_in = t if self.last_in is None else max(self.last_in, t)
+
     # ------------------------------------------------------------------ callbacks
     def on_wheel(self, msg, bogie):
         c0 = time.perf_counter()
         t = stamp_sec(msg)
+        self.check_new_bag(t)
         self.est.on_wheel(t, bogie, float(msg.velocity))
         self.after_input(t, msg.header.stamp, c0)
 
     def on_cmd(self, msg):
         c0 = time.perf_counter()
         t = stamp_sec(msg)
+        self.check_new_bag(t)
         self.est.on_cmd(t, int(msg.position))
         self.after_input(t, msg.header.stamp, c0)
 
     def on_fix(self, msg, antenna):
         if not self.gnss_subs:
             return
+        self.check_new_bag(stamp_sec(msg))
         self.est.on_gnss(stamp_sec(msg), antenna, float(msg.latitude), float(msg.longitude),
                          int(msg.status.status))
         if not self.est.aligning:
