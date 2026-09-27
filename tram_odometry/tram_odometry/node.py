@@ -60,6 +60,7 @@ class TramOdometryNode(Node):
         self.new_estimator = lambda: Estimator(*model)
         self.est = self.new_estimator()
         self.last_in = None      # самый поздний штамп входа (для распознавания нового bag)
+        self.aligned_logged = False
         self.map_frame = gp('map_frame').value
         self.base_frame = gp('base_frame').value
         self.init_xy = (gp('initial_x').value, gp('initial_y').value, gp('initial_yaw').value)
@@ -105,6 +106,7 @@ class TramOdometryNode(Node):
             self.get_logger().warn('input time jumped %.1f s: new bag, estimator reset' % (t - self.last_in))
             self.est = self.new_estimator()
             self.t_first = None
+            self.aligned_logged = False
             self.last_in = t
             if not self.gnss_subs:
                 self.open_gnss()
@@ -132,15 +134,22 @@ class TramOdometryNode(Node):
         self.check_new_bag(stamp_sec(msg))
         self.est.on_gnss(stamp_sec(msg), antenna, float(msg.latitude), float(msg.longitude),
                          int(msg.status.status))
-        if not self.est.aligning:
-            self.drop_gnss()
+        self.alignment_done()
 
-    def drop_gnss(self):
-        for s in self.gnss_subs:
-            self.destroy_subscription(s)
+    def alignment_done(self):
+        """После выставки: без gnss_correction подписки на GNSS закрываются, с ней остаются -
+        редкие фиксы по ходу рейса мягко поправляют положение."""
+        if self.aligned_logged or not self.est.initialized or self.est.aligning:
+            return
+        self.aligned_logged = True
+        where = (self.est.route.name if self.est.route else 'none', self.est.s)
+        if self.est.p['gnss_correction']:
+            self.get_logger().info('alignment done (%s, s=%.1f m); GNSS kept for gentle corrections' % where)
+            return
+        for sub in self.gnss_subs:
+            self.destroy_subscription(sub)
         self.gnss_subs = []
-        self.get_logger().info('alignment done (%s, s=%.1f m); GNSS subscriptions closed' % (
-            self.est.route.name if self.est.route else 'none', self.est.s))
+        self.get_logger().info('alignment done (%s, s=%.1f m); GNSS subscriptions closed' % where)
 
     def after_input(self, t, stamp, c0):
         if self.t_first is None:
@@ -151,7 +160,7 @@ class TramOdometryNode(Node):
                 self.est.init_from_xy(t, x, y, yaw if math.isfinite(yaw) else None)
                 self.get_logger().warn('no GNSS alignment - using initial_x/initial_y')
         if self.gnss_subs and self.est.initialized and not self.est.aligning:
-            self.drop_gnss()
+            self.alignment_done()
         st = self.est.state(t)
         if st is None:
             return

@@ -23,4 +23,4 @@ for BAG in "$DIR"/*/; do
     printf "%-22s %12s %12s %12s\n" "$NAME" "${PR:-n/a}" "${PM:-n/a}" "${VR:-n/a}" | tee -a "$SUM"
 done
 awk 'NR > 1 && $2 != "n/a" {p += $2; v += $4; n++; if ($3 > m) m = $3}
-     END {if (n) printf "%-22s %12.3f %12.3f %12.3f\n", "среднее (" n " bag)", p / n, m, v / n}' "$SUM" | tee -a "$SUM"
+     END {if (n) printf "%-22s %12.3f %12.3f %12.3f\n", "mean (" n " bags)", p / n, m, v / n}' "$SUM" | tee -a "$SUM"

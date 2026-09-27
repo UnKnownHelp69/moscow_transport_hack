@@ -49,6 +49,19 @@ class Route:
                 out.append((s,float(dist[i]),float(np.arctan2(d[i,1],d[i,0]))))
         return out
 
+    def project_near(self, x, y, s0, window):
+        """Ближайшая точка полилинии среди сегментов в пределах s0 +- window: (s, поперечное
+        расстояние) или None. Не путает проходы самопересекающегося маршрута."""
+        i0 = max(int(np.searchsorted(self.s, s0 - window)) - 1, 0)
+        i1 = min(int(np.searchsorted(self.s, s0 + window)) + 1, len(self.s) - 1)
+        if i1 <= i0:
+            return None
+        a, d, L2 = self._a[i0:i1], self._d[i0:i1], self._l2[i0:i1]
+        u = np.clip(((x - a[:, 0]) * d[:, 0] + (y - a[:, 1]) * d[:, 1]) / L2, 0.0, 1.0)
+        dist = np.hypot(a[:, 0] + u * d[:, 0] - x, a[:, 1] + u * d[:, 1] - y)
+        j = int(dist.argmin())
+        return float(self.s[i0 + j] + u[j] * np.sqrt(L2[j])), float(dist[j])
+
     def project(self, x, y):
         """Ближайшая точка полилинии: (s, поперечное расстояние, курс касательной)."""
         a, d, L2 = self._a, self._d, self._l2

@@ -15,6 +15,8 @@ import time
 import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+GNSS_MODE = os.environ.get('TRAM_EVAL_GNSS', 'start')   # start | burst | sparse | all
+SPARSE_PERIOD = float(os.environ.get('TRAM_EVAL_GNSS_PERIOD', '30'))   # с, для sparse
 # по умолчанию - поставляемая модель (только train и архив OSM)
 os.environ.setdefault('TRAM_ODOM_DATA', os.path.join(HERE, '..', 'tram_odometry', 'tram_odometry', 'data'))
 sys.path.insert(0, HERE)
@@ -47,6 +49,7 @@ def run_bag(bag, routes, params, stops=None, traction=None):
     T, K, V = events(d)
     llh = {MFIX: d['master_llh'], RFIX: d['rover_llh']}
     out_t, out = [], []
+    sparse_seen = set()
     wall = 0.0
     for t, k, v in zip(T, K, V):
         c0 = time.perf_counter()
@@ -58,7 +61,16 @@ def run_bag(bag, routes, params, stops=None, traction=None):
             est.on_cmd(t, v)
         else:
             if not est.aligning:
-                continue
+                # GNSS после выставки: 'start' - нет (как в условии по умолчанию), 'burst' - пачки
+                # по 5 с каждые 120 с, 'sparse' - по фиксу антенны раз в 30 с, 'all' - весь прогон (оценка против того же GNSS оптимистична)
+                if GNSS_MODE == 'start' or (GNSS_MODE == 'burst' and (t - T[0]) % 120.0 > 5.0):
+                    continue
+                if GNSS_MODE == 'sparse':
+                    # по одному фиксу каждой антенны раз в SPARSE_PERIOD с
+                    b = (k, int((t - T[0]) // SPARSE_PERIOD))
+                    if b in sparse_seen:
+                        continue
+                    sparse_seen.add(b)
             la, lo, _ = llh[k][int(v)]
             est.on_gnss(t, 'master' if k == MFIX else 'rover', la, lo)
             continue

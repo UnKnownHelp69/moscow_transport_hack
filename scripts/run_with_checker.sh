@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Запуск нашего узла с чекером организаторов (check-code) в его workspace или контейнере.
-#   Структура: /workspace/src/{checker_ros, tram_vehicle_msgs, mos_trap}   (mos_trap - этот репозиторий)
-#   Сборка:    cd /workspace && colcon build && source install/setup.bash
+#   Структура: <WS>/src/{checker_ros, tram_vehicle_msgs, mos_trap}   (mos_trap - этот репозиторий)
+#   Сборка:    cd <WS> && colcon build && source install/setup.bash
 #   Запуск:    src/mos_trap/scripts/run_with_checker.sh bags/30618_88aea4d9 [rate] [vehicle_id]
 #   vehicle_id по умолчанию - префикс имени bag (30618 / 30639), задаёт масштаб колёс вагона.
 # Печатает итоговые строки RMSE/max чекера; логи в ./checker_out/ (или в $OUT).

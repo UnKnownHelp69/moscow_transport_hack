@@ -59,6 +59,17 @@ DEFAULT_PARAMS = {
     'branch_speed': 5.0,       # м/с: быстрее этого после развилки - тупик (в кольце <= 4.6 м/с)
     'branch_start': 20.0,      # м после конца карты: начало окна решения
     'branch_window': 200.0,    # м после конца карты: конец окна решения
+    # --- GNSS после выставки (если фиксы приходят): мягкая поправка пути и выбор ветки
+    'gnss_correction': True,   # False - GNSS только для выставки
+    'gnss_corr_std': 3.0,      # м: считаемая погрешность фикса вдоль пути (с запасом на шум)
+    'gnss_corr_max_xt': 2.5,   # м: фикс дальше от пути отбрасывается
+    'gnss_corr_max_xt_tail': 5.0, # м: то же за развилкой западной конечной (соседние пути тупиков)
+    'gnss_corr_gate': 15.0,    # м: мин. допуск невязки; допуск = max(этого, 3 * sqrt(sigma_s^2 + std^2))
+    'gnss_corr_min_dt': 1.0,   # с: не чаще одной поправки за это время
+    'gnss_corr_window': 60.0,  # м: поиск проекции вокруг прогноза
+    'gnss_corr_pair_dt': 0.5,  # с: окно сверки фиксов master и rover
+    'gnss_corr_pair_tol': 0.5, # м: допуск к базе 12.436 м (плюс v * dt между фиксами)
+    'gnss_corr_holdoff': 10.0, # с: после расхождения антенн фиксы не используются
     'queue_mode': 'soft',      # места очередей и светофоров: 'off' | 'skip' | 'soft'
     'queue_prior': 1.0,        # априорный вес места очереди относительно станции
     'queue_min_std': 2.0,      # м: минимальное СКО места очереди
@@ -143,6 +154,13 @@ class Estimator:
         self.queue_s = {}             # маршрут -> [(s, СКО)] мест очередей и светофоров
         self.n_queue = 0
         self.n_branch = 0
+        self.n_gnss_corr = 0          # принятые поправки по GNSS после выставки
+        self.gnss_corr_t = None       # время последней такой поправки
+        self.gnss_branch_votes = 0    # подряд идущие фиксы за другую ветку
+        self.gnss_last = {}           # антенна -> (t, x, y) последнего RTK-фикса
+        self.gnss_bad_t = None        # время последнего расхождения антенн
+        self.gnss_undo = None         # (t фикса, сдвиг s, var0, d_since) последней поправки
+        self.branch_by_gnss = False   # ветку выбрал GNSS - правило по скорости не трогает
         if stops and self.p['stops_enabled']:
             self._index_stops(stops)
         if queues and self.p['queue_mode'] != 'off':
@@ -202,12 +220,14 @@ class Estimator:
             self.cmd_hist.pop(0)
 
     def on_gnss(self, t, antenna, lat, lon, status=2):
-        """Фикс GNSS. Используется только в окне выставки."""
+        """Фикс GNSS: выставка в окне, дальше (gnss_correction) - мягкая поправка пути."""
         if antenna not in ('master', 'rover') or not self._valid_time(t, antenna):
             return
         if lat is None or lon is None or not -90 <= lat <= 90 or not -180 <= lon <= 180:
             return
         if not self.aligning:
+            if self.initialized and self.p['gnss_correction']:
+                self._gnss_correct(t, antenna, lat, lon, status)
             return
         if status != 2 or not (math.isfinite(lat) and math.isfinite(lon)) or lat == 0.0:
             return
@@ -255,7 +275,7 @@ class Estimator:
             'sigma_s': self.sigma_s() if self.initialized else float('nan'),
             'slip': self.slip, 'slip_mode': self.slip_mode, 'n_slip': self.n_slip,
             'n_rejected': self.n_rejected, 'n_corrections': self.n_corrections,
-            'n_recoveries': self.n_recoveries, 'n_queue': self.n_queue, 'n_branch': self.n_branch, 'wheel_scale': self.p['wheel_scale'] * self.scale,
+            'n_recoveries': self.n_recoveries, 'n_queue': self.n_queue, 'n_branch': self.n_branch, 'n_gnss_corr': self.n_gnss_corr, 'wheel_scale': self.p['wheel_scale'] * self.scale,
             'notch': self.notch,
         }
 
@@ -369,7 +389,88 @@ class Estimator:
     def _stub_sibling_of(self, route):
         return self._sibling(route, 'loop')
 
+    def _gnss_correct(self, t, antenna, lat, lon, status):
+        """Поправка s по фиксу GNSS после выставки. Фикс считается шумным (gnss_corr_std), берётся
+        только RTK без расхождения антенн, близкий к пути и к прогнозу, не чаще
+        gnss_corr_min_dt; скорость не меняется."""
+        p = self.p
+        if (status != 2 or not (math.isfinite(lat) and math.isfinite(lon)) or self.route is None
+                or self.ps is not None):
+            return
+        x, y = latlon_to_mgrs_local(lat, lon)
+        self.gnss_last[antenna] = (t, x, y)
+        # статус RTK бывает и у сбойных фиксов: если есть близкий по времени фикс второй антенны,
+        # а расстояние между ними не равно базе 12.436 м, приёмник сбоит - фиксы не берём ещё
+        # gnss_corr_holdoff (сразу после сбоя они смещены). Одиночный фикс принимается.
+        o = self.gnss_last.get('rover' if antenna == 'master' else 'master')
+        if (o is not None and abs(o[0] - t) <= p['gnss_corr_pair_dt']
+                and abs(math.hypot(o[1] - x, o[2] - y) - BASELINE)
+                > p['gnss_corr_pair_tol'] + abs(self.v) * abs(o[0] - t)):
+            self.gnss_bad_t = t
+            u = self.gnss_undo
+            if u is not None and abs(u[0] - t) <= p['gnss_corr_pair_dt']:
+                # фикс первой антенны пары уже поправил s - откатываем
+                self.s = min(max(self.s - u[1], 0.0), self.route.length)
+                self.var0, self.d_since = u[2], u[3] + self.d_since
+                self.n_gnss_corr -= 1
+            self.gnss_undo = None
+        if self.gnss_bad_t is not None and 0.0 <= t - self.gnss_bad_t < p['gnss_corr_holdoff']:
+            return
+        if self.gnss_corr_t is not None and t - self.gnss_corr_t < p['gnss_corr_min_dt']:
+            return
+        self._accept(t, antenna)
+        self._propagate(t)
+        off = -(MASTER_X if antenna == 'master' else ROVER_X)     # s_base = s_антенны + off
+        s_fix = self.s - max(self.t - t, 0.0) * self.v * self.scale   # положение на момент фикса
+        near = self.route.project_near(x, y, s_fix - off, p['gnss_corr_window'])
+        if near is None:
+            return
+        s_ant, xt = near
+        self._gnss_branch(x, y, s_fix - off, xt)
+        if self.route.length - (s_ant + off) < 1.0:
+            return                  # у конца маршрута проекция упирается в край
+        fork = self.route.meta.get('fork_s')
+        on_tail = fork is not None and s_ant + off > fork     # за развилкой западной конечной
+        if xt > p['gnss_corr_max_xt_tail' if on_tail else 'gnss_corr_max_xt']:
+            return
+        innov = s_ant + off - s_fix
+        sig = self.sigma_s()
+        std2 = p['gnss_corr_std'] ** 2
+        if abs(innov) > max(p['gnss_corr_gate'], 3.0 * math.sqrt(sig * sig + std2)):
+            return
+        var = sig * sig
+        k = var / (var + std2)
+        s0 = self.s
+        self.s = min(max(self.s + k * innov, 0.0), self.route.length)
+        self.gnss_undo = (t, self.s - s0, self.var0, self.d_since)
+        self.var0, self.d_since = (1 - k) * var, 0.0
+        self.gnss_corr_t = t
+        self.n_gnss_corr += 1
+
+    def _gnss_branch(self, x, y, s_ant, xt):
+        """После развилки на конечной: три фикса подряд ближе к другой ветке больше чем на 6 м -
+        переход на неё при той же s (соседние ветки у развилки ближе 6 м друг к другу, там
+        шумный фикс не решает)."""
+        fs = self.route.meta.get('fork_s')
+        kind = self.route.meta.get('tail_kind')
+        if fs is None or kind not in ('loop', 'stub') or s_ant < fs + 5.0:
+            self.gnss_branch_votes = 0
+            return
+        other = self._sibling(self.route, 'stub' if kind == 'loop' else 'loop')
+        near = other.project_near(x, y, s_ant, self.p['gnss_corr_window']) if other else None
+        if near is None or xt - near[1] < 6.0:
+            self.gnss_branch_votes = 0
+            return
+        self.gnss_branch_votes += 1
+        if self.gnss_branch_votes >= 3:
+            self.route = other
+            self.branch_by_gnss = True
+            self.gnss_branch_votes = 0
+            self.n_branch += 1
+
     def _check_branch(self):
+        if self.branch_by_gnss:
+            return
         if not self.p['branch_enabled'] or self.route is None or self.route.meta.get('tail_kind') != 'loop':
             return
         fs = self.route.meta.get('fork_s')
