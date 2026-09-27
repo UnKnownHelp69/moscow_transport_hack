@@ -1,0 +1,18 @@
+# распакованный датасет rosbag (~825 МБ, 122 прогона), не коммитить
+dataset/data/
+*.db3
+*.zip
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# редакторы и ОС
+.vscode/
+.DS_Store
+Thumbs.db
+
+# кэш массивов по bag (analysis/refdata.py)
+dataset/cache/

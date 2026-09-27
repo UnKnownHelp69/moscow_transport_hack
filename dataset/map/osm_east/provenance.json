@@ -1,0 +1,14 @@
+{
+  "url": "https://api.openstreetmap.org/api/0.6/map?bbox=37.456,55.807,37.466,55.814",
+  "retrieved_utc": "2026-09-26T15:21:25.151769+00:00",
+  "bbox": [
+    37.456,
+    55.807,
+    37.466,
+    55.814
+  ],
+  "license": "ODbL",
+  "attribution": "OpenStreetMap contributors",
+  "copyright_url": "https://www.openstreetmap.org/copyright",
+  "osm_base_timestamp": null
+}

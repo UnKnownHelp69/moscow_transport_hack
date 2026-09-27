@@ -1,0 +1,1394 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 81235665,
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1524",
+        "maxspeed": "15",
+        "oneway": "yes",
+        "railway": "tram",
+        "usage": "main",
+        "voltage": "600"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.3901762,
+            55.800231
+          ],
+          [
+            37.3903595,
+            55.8003325
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 154928456,
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1524",
+        "maxspeed": "60",
+        "oneway": "yes",
+        "railway": "tram",
+        "usage": "main",
+        "voltage": "600"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.3982308,
+            55.8117376
+          ],
+          [
+            37.3980778,
+            55.8115115
+          ],
+          [
+            37.39792,
+            55.811279
+          ],
+          [
+            37.3973613,
+            55.8104483
+          ],
+          [
+            37.3970722,
+            55.810032
+          ],
+          [
+            37.3955606,
+            55.8078027
+          ],
+          [
+            37.3954631,
+            55.8076654
+          ],
+          [
+            37.395395,
+            55.8075662
+          ],
+          [
+            37.3953496,
+            55.8075008
+          ],
+          [
+            37.3952709,
+            55.8073853
+          ],
+          [
+            37.3943329,
+            55.8060088
+          ],
+          [
+            37.3942454,
+            55.8058804
+          ],
+          [
+            37.3939442,
+            55.8054365
+          ],
+          [
+            37.3938455,
+            55.8052796
+          ],
+          [
+            37.3935829,
+            55.8048858
+          ],
+          [
+            37.3933295,
+            55.8045201
+          ],
+          [
+            37.3913237,
+            55.8015705
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 154928461,
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1524",
+        "maxspeed": "60",
+        "oneway": "yes",
+        "railway": "tram",
+        "usage": "main",
+        "voltage": "600"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.391231,
+            55.8013519
+          ],
+          [
+            37.3913294,
+            55.8014927
+          ],
+          [
+            37.3933784,
+            55.8045102
+          ],
+          [
+            37.3937493,
+            55.8050607
+          ],
+          [
+            37.3938937,
+            55.8052691
+          ],
+          [
+            37.3939943,
+            55.8054264
+          ],
+          [
+            37.3943019,
+            55.8058687
+          ],
+          [
+            37.3943889,
+            55.8059965
+          ],
+          [
+            37.3953267,
+            55.8073739
+          ],
+          [
+            37.3954057,
+            55.80749
+          ],
+          [
+            37.3954481,
+            55.8075551
+          ],
+          [
+            37.3955148,
+            55.8076539
+          ],
+          [
+            37.3958148,
+            55.8080962
+          ],
+          [
+            37.3971298,
+            55.810019
+          ],
+          [
+            37.3973904,
+            55.8104008
+          ],
+          [
+            37.3981538,
+            55.811539
+          ],
+          [
+            37.3982792,
+            55.8117277
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 188726176,
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1524",
+        "maxspeed": "15",
+        "oneway": "yes",
+        "railway": "tram",
+        "railway:track_ref": "7\u0410",
+        "service": "siding",
+        "usage": "main",
+        "voltage": "600"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.3882783,
+            55.7996316
+          ],
+          [
+            37.3882275,
+            55.7996055
+          ],
+          [
+            37.3881708,
+            55.7995637
+          ],
+          [
+            37.3881392,
+            55.7995057
+          ],
+          [
+            37.3881446,
+            55.7994452
+          ],
+          [
+            37.3881862,
+            55.7993893
+          ],
+          [
+            37.3882591,
+            55.7993447
+          ],
+          [
+            37.3883547,
+            55.7993166
+          ],
+          [
+            37.3884615,
+            55.7993085
+          ],
+          [
+            37.3885669,
+            55.7993212
+          ],
+          [
+            37.388678,
+            55.7993552
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 188726177,
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1524",
+        "maxspeed": "15",
+        "oneway": "yes",
+        "railway": "tram",
+        "railway:track_ref": "4",
+        "service": "siding",
+        "usage": "main",
+        "voltage": "600"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.388678,
+            55.7993552
+          ],
+          [
+            37.3895903,
+            55.7998966
+          ],
+          [
+            37.3898939,
+            55.8000632
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 188726178,
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1524",
+        "maxspeed": "15",
+        "oneway": "yes",
+        "railway": "tram",
+        "railway:track_ref": "5",
+        "service": "siding",
+        "usage": "main",
+        "voltage": "600"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.3887455,
+            55.7993341
+          ],
+          [
+            37.3897499,
+            55.7999311
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 188726179,
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1524",
+        "maxspeed": "15",
+        "oneway": "yes",
+        "railway": "tram",
+        "railway:track_ref": "1",
+        "usage": "main",
+        "voltage": "600"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.3901364,
+            55.8002466
+          ],
+          [
+            37.3901115,
+            55.8002317
+          ],
+          [
+            37.3899973,
+            55.8001637
+          ],
+          [
+            37.3899133,
+            55.8001159
+          ],
+          [
+            37.3898256,
+            55.8000805
+          ],
+          [
+            37.3896824,
+            55.8000367
+          ],
+          [
+            37.388423,
+            55.7997726
+          ],
+          [
+            37.3883414,
+            55.7997454
+          ],
+          [
+            37.3882668,
+            55.7997155
+          ],
+          [
+            37.3881742,
+            55.799668
+          ],
+          [
+            37.3880971,
+            55.7996044
+          ],
+          [
+            37.3880271,
+            55.7995175
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 188726180,
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1524",
+        "maxspeed": "15",
+        "oneway": "yes",
+        "railway": "tram",
+        "service": "siding",
+        "usage": "main",
+        "voltage": "600"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.3882783,
+            55.7996316
+          ],
+          [
+            37.3882107,
+            55.7996139
+          ],
+          [
+            37.3881332,
+            55.7995883
+          ],
+          [
+            37.3880271,
+            55.7995175
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 188726183,
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1524",
+        "maxspeed": "15",
+        "oneway": "yes",
+        "railway": "tram",
+        "railway:track_ref": "6",
+        "usage": "main",
+        "voltage": "600"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.3885913,
+            55.7992925
+          ],
+          [
+            37.3887455,
+            55.7993341
+          ],
+          [
+            37.3889291,
+            55.7993866
+          ],
+          [
+            37.3896118,
+            55.7997956
+          ],
+          [
+            37.3897499,
+            55.7999311
+          ],
+          [
+            37.3898939,
+            55.8000632
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 188726184,
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1524",
+        "maxspeed": "15",
+        "oneway": "yes",
+        "railway": "tram",
+        "railway:track_ref": "2",
+        "service": "siding",
+        "usage": "main",
+        "voltage": "600"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.3897292,
+            55.8000084
+          ],
+          [
+            37.3895382,
+            55.7999562
+          ],
+          [
+            37.3884145,
+            55.7997168
+          ],
+          [
+            37.3883126,
+            55.799683
+          ],
+          [
+            37.3882018,
+            55.7996334
+          ],
+          [
+            37.3881332,
+            55.7995883
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 188726185,
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1524",
+        "maxspeed": "15",
+        "oneway": "yes",
+        "railway": "tram",
+        "railway:track_ref": "3",
+        "service": "siding",
+        "usage": "main",
+        "voltage": "600"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.3899133,
+            55.8001159
+          ],
+          [
+            37.3897292,
+            55.8000084
+          ],
+          [
+            37.3895742,
+            55.7999272
+          ],
+          [
+            37.3895045,
+            55.7999053
+          ],
+          [
+            37.3882783,
+            55.7996316
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 236632737,
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1524",
+        "maxspeed": "60",
+        "oneway": "yes",
+        "railway": "tram",
+        "usage": "main",
+        "voltage": "600"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.391951,
+            55.8001336
+          ],
+          [
+            37.3921425,
+            55.8000927
+          ],
+          [
+            37.3953969,
+            55.7993979
+          ],
+          [
+            37.395585,
+            55.7993582
+          ],
+          [
+            37.3963463,
+            55.7991985
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 488091027,
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1524",
+        "maxspeed": "60",
+        "oneway": "yes",
+        "railway": "tram",
+        "usage": "main",
+        "voltage": "600"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.3963533,
+            55.7992297
+          ],
+          [
+            37.3957285,
+            55.7993609
+          ],
+          [
+            37.3956046,
+            55.7993869
+          ],
+          [
+            37.3923371,
+            55.800089
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 488091029,
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1524",
+        "maxspeed": "15",
+        "oneway": "yes",
+        "railway": "tram",
+        "usage": "main",
+        "voltage": "600"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.3898939,
+            55.8000632
+          ],
+          [
+            37.3900427,
+            55.8001517
+          ],
+          [
+            37.3901762,
+            55.800231
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 893134593,
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1524",
+        "maxspeed": "60",
+        "oneway": "yes",
+        "railway": "tram",
+        "usage": "main",
+        "voltage": "600"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.3908232,
+            55.800713
+          ],
+          [
+            37.3910107,
+            55.8010273
+          ],
+          [
+            37.391231,
+            55.8013519
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 893134594,
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1524",
+        "maxspeed": "60",
+        "oneway": "yes",
+        "railway": "tram",
+        "usage": "main",
+        "voltage": "600"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.3913237,
+            55.8015705
+          ],
+          [
+            37.3912822,
+            55.8015029
+          ],
+          [
+            37.3909698,
+            55.8010397
+          ],
+          [
+            37.3907838,
+            55.8007254
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 893134595,
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1524",
+        "maxspeed": "60",
+        "oneway": "yes",
+        "railway": "tram",
+        "usage": "main",
+        "voltage": "600"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.3923371,
+            55.800089
+          ],
+          [
+            37.3920773,
+            55.8001437
+          ],
+          [
+            37.3911293,
+            55.8003434
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 893134596,
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1524",
+        "maxspeed": "60",
+        "oneway": "yes",
+        "railway": "tram",
+        "usage": "main",
+        "voltage": "600"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.3911143,
+            55.8003171
+          ],
+          [
+            37.391951,
+            55.8001336
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 1199696832,
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1524",
+        "maxspeed": "15",
+        "oneway": "yes",
+        "railway": "tram",
+        "railway:track_ref": "7",
+        "usage": "main",
+        "voltage": "600"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.3880271,
+            55.7995175
+          ],
+          [
+            37.3880013,
+            55.7994721
+          ],
+          [
+            37.3879851,
+            55.7994158
+          ],
+          [
+            37.3880017,
+            55.7993596
+          ],
+          [
+            37.3880494,
+            55.7993092
+          ],
+          [
+            37.3881231,
+            55.79927
+          ],
+          [
+            37.3882153,
+            55.7992461
+          ],
+          [
+            37.3883161,
+            55.79924
+          ],
+          [
+            37.3884152,
+            55.7992523
+          ],
+          [
+            37.3885913,
+            55.7992925
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 1232873046,
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1524",
+        "maxspeed": "10",
+        "oneway": "yes",
+        "railway": "tram",
+        "service": "siding",
+        "usage": "main",
+        "voltage": "600"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.3885913,
+            55.7992925
+          ],
+          [
+            37.388678,
+            55.7993552
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 1304665910,
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1524",
+        "maxspeed": "15",
+        "oneway": "yes",
+        "railway": "tram",
+        "usage": "main",
+        "voltage": "600"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.3903595,
+            55.8003325
+          ],
+          [
+            37.3904647,
+            55.8003586
+          ],
+          [
+            37.3905422,
+            55.8003689
+          ],
+          [
+            37.3906213,
+            55.8003762
+          ],
+          [
+            37.3906937,
+            55.8003768
+          ],
+          [
+            37.3907591,
+            55.8003746
+          ],
+          [
+            37.3908225,
+            55.8003693
+          ],
+          [
+            37.3908828,
+            55.8003617
+          ],
+          [
+            37.3909414,
+            55.8003503
+          ],
+          [
+            37.3911143,
+            55.8003171
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 1304665911,
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1524",
+        "maxspeed": "15",
+        "oneway": "yes",
+        "railway": "tram",
+        "usage": "main",
+        "voltage": "600"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.3911293,
+            55.8003434
+          ],
+          [
+            37.3909512,
+            55.800376
+          ],
+          [
+            37.3908915,
+            55.8003847
+          ],
+          [
+            37.3908312,
+            55.800393
+          ],
+          [
+            37.3907637,
+            55.8004001
+          ],
+          [
+            37.390621,
+            55.8004002
+          ],
+          [
+            37.3905368,
+            55.8003938
+          ],
+          [
+            37.3904529,
+            55.8003832
+          ],
+          [
+            37.3903287,
+            55.8003539
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 1304795477,
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1524",
+        "maxspeed": "25",
+        "oneway": "yes",
+        "railway": "tram",
+        "usage": "main",
+        "voltage": "600"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.3903595,
+            55.8003325
+          ],
+          [
+            37.3904529,
+            55.8003832
+          ],
+          [
+            37.3905183,
+            55.800425
+          ],
+          [
+            37.3906475,
+            55.8005209
+          ],
+          [
+            37.3907522,
+            55.8006302
+          ],
+          [
+            37.3908232,
+            55.800713
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 1304795478,
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1524",
+        "maxspeed": "20",
+        "oneway": "yes",
+        "railway": "tram",
+        "usage": "main",
+        "voltage": "600"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.3907838,
+            55.8007254
+          ],
+          [
+            37.3907169,
+            55.8006435
+          ],
+          [
+            37.3906148,
+            55.8005353
+          ],
+          [
+            37.3904804,
+            55.8004422
+          ],
+          [
+            37.3903766,
+            55.8003797
+          ],
+          [
+            37.3903287,
+            55.8003539
+          ],
+          [
+            37.3901364,
+            55.8002466
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 1304795479,
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1524",
+        "maxspeed": "15",
+        "oneway": "yes",
+        "railway": "tram",
+        "usage": "main",
+        "voltage": "600"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.3899205,
+            55.7998963
+          ],
+          [
+            37.3900095,
+            55.8000228
+          ],
+          [
+            37.3900814,
+            55.8001387
+          ],
+          [
+            37.3901488,
+            55.8002038
+          ],
+          [
+            37.3901513,
+            55.8002069
+          ],
+          [
+            37.3901762,
+            55.800231
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 1304795480,
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1524",
+        "maxspeed": "15",
+        "oneway": "yes",
+        "railway": "tram",
+        "usage": "main",
+        "voltage": "600"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.3901364,
+            55.8002466
+          ],
+          [
+            37.3901174,
+            55.8002276
+          ],
+          [
+            37.3900427,
+            55.8001517
+          ],
+          [
+            37.3899614,
+            55.800036
+          ],
+          [
+            37.3898677,
+            55.7999121
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 1304795481,
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1524",
+        "maxspeed": "25",
+        "oneway": "yes",
+        "railway": "tram",
+        "usage": "main",
+        "voltage": "600"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.3898677,
+            55.7999121
+          ],
+          [
+            37.3896921,
+            55.7997175
+          ],
+          [
+            37.3895254,
+            55.7995813
+          ],
+          [
+            37.3893269,
+            55.7994662
+          ],
+          [
+            37.3891261,
+            55.799377
+          ],
+          [
+            37.3889445,
+            55.7993085
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 1304795482,
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1524",
+        "maxspeed": "25",
+        "oneway": "yes",
+        "railway": "tram",
+        "usage": "main",
+        "voltage": "600"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.3889743,
+            55.7992812
+          ],
+          [
+            37.3891595,
+            55.799354
+          ],
+          [
+            37.3893614,
+            55.7994417
+          ],
+          [
+            37.3895699,
+            55.799559
+          ],
+          [
+            37.3897436,
+            55.799702
+          ],
+          [
+            37.3899205,
+            55.7998963
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 1304795483,
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1524",
+        "maxspeed": "60",
+        "oneway": "yes",
+        "railway": "tram",
+        "usage": "main",
+        "voltage": "600"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.3863142,
+            55.7983251
+          ],
+          [
+            37.3864704,
+            55.7983841
+          ],
+          [
+            37.3879213,
+            55.7988865
+          ],
+          [
+            37.3884516,
+            55.7990756
+          ],
+          [
+            37.3889743,
+            55.7992812
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 1304795484,
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1524",
+        "maxspeed": "60",
+        "oneway": "yes",
+        "railway": "tram",
+        "usage": "main",
+        "voltage": "600"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.3889445,
+            55.7993085
+          ],
+          [
+            37.3884131,
+            55.7991081
+          ],
+          [
+            37.3862772,
+            55.7983577
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 1304795485,
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1524",
+        "incline": "up_4.7%",
+        "maxspeed": "60",
+        "oneway": "yes",
+        "railway": "tram",
+        "usage": "main",
+        "voltage": "600"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.3843761,
+            55.7976242
+          ],
+          [
+            37.3851919,
+            55.7979302
+          ],
+          [
+            37.3860492,
+            55.798225
+          ],
+          [
+            37.3863142,
+            55.7983251
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_id": 1304795486,
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1524",
+        "incline": "down_4.7%",
+        "maxspeed": "25",
+        "oneway": "yes",
+        "railway": "tram",
+        "usage": "main",
+        "voltage": "600"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.3862772,
+            55.7983577
+          ],
+          [
+            37.3860027,
+            55.7982613
+          ],
+          [
+            37.3843348,
+            55.7976553
+          ]
+        ]
+      }
+    }
+  ]
+}

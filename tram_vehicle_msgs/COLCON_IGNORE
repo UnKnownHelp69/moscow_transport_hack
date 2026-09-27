@@ -1,0 +1,8 @@
+Эта копия tram_vehicle_msgs намеренно исключена из сборки colcon: в workspace чекера
+организаторов уже есть пакет tram_vehicle_msgs, а два пакета с одним именем ломают
+`colcon build` ("Duplicate package names not supported").
+
+Наша копия шире: VelocitySensor тот же, плюс DriverControllerCommand. Чтобы `ros2 bag play`
+публиковал /vehicle/driver_position_cmd и узел использовал позицию контроллера, замените
+пакет организаторов этим и удалите этот файл. Если другого tram_vehicle_msgs в workspace
+нет, просто удалите этот файл.
